@@ -1,0 +1,16 @@
+services:
+  yt-transcript-dl:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: yt-transcript-dl
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8080}:${PORT:-8080}"
+    environment:
+      - PORT=${PORT:-8080}
+      - OUTPUT_DIR=${OUTPUT_DIR:-/data/transcripts}
+      - DEFAULT_LANGUAGE=${DEFAULT_LANGUAGE:-en}
+      - DEFAULT_DELAY=${DEFAULT_DELAY:-1.5}
+    volumes:
+      - "${HOST_TRANSCRIPTS_DIR:-./transcripts}:/data/transcripts"
